@@ -64,7 +64,7 @@ module FriendlyId
       include ::FriendlyId::History::FinderMethods
 
       def exists_by_friendly_id?(id)
-        where(friendly_id_config.query_field => id).exists? ||
+        joins(:slugs).where(friendly_id_config.query_field => id).exists? ||
           joins(:slugs).where(slug_history_clause(id)).exists?
       end
     end
